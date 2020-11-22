@@ -65,6 +65,8 @@
 	var/tmp/list/gear_leftovers = list()
 	var/gimmick = FALSE //least hacky way i could think of for this
 
+	var/list/alt_titles = list()
+
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
 //do actions on H but send messages to M as the key may not have been transferred_yet

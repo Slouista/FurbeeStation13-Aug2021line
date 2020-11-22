@@ -73,7 +73,7 @@
 // DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE				3
 
-#define DNA_UNI_IDENTITY_BLOCKS		7
+#define DNA_UNI_IDENTITY_BLOCKS		14
 #define DNA_HAIR_COLOR_BLOCK		1
 #define DNA_FACIAL_HAIR_COLOR_BLOCK	2
 #define DNA_SKIN_TONE_BLOCK			3
@@ -81,6 +81,13 @@
 #define DNA_GENDER_BLOCK			5
 #define DNA_FACIAL_HAIR_STYLE_BLOCK	6
 #define DNA_HAIR_STYLE_BLOCK		7
+#define DNA_COLOR_ONE_BLOCK			8
+#define DNA_COLOR_TWO_BLOCK			9
+#define DNA_COLOR_THREE_BLOCK		10
+#define DNA_MUTANTTAIL_BLOCK		11
+#define DNA_MUTANTEAR_BLOCK			12
+#define DNA_MUTANTMARKING_BLOCK		13
+#define DNA_TAUR_BLOCK 				14
 
 #define DNA_SEQUENCE_LENGTH			4
 #define DNA_MUTATION_BLOCKS			8
@@ -125,6 +132,8 @@
 #define NOHUSK			22 // Can't be husked.
 #define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
 #define NOMOUTH			24
+#define WINGCOLOR		25
+#define MARKINGS		26
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

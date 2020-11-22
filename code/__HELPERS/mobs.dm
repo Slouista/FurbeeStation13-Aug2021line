@@ -47,7 +47,7 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
 	return pick(GLOB.socks_list)
 
-/proc/random_features()
+/proc/random_features(intendedspecies)
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
 	if(!GLOB.tails_list_lizard.len)
@@ -70,6 +70,10 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
 	if(!GLOB.moth_wings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
+	if(!GLOB.moth_fluffs_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_fluff, GLOB.moth_fluffs_list)
+	if(!GLOB.moth_markings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
 	if(!GLOB.ipc_screens_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	if(!GLOB.ipc_antennas_list.len)
@@ -78,8 +82,95 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	if(!GLOB.insect_type_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
-	//For now we will always return none for tail_human and ears.
-	return(list("mcolor" = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)], "tail_lizard" = pick(GLOB.tails_list_lizard), "tail_human" = "None", "wings" = "None", "snout" = pick(GLOB.snouts_list), "horns" = pick(GLOB.horns_list), "ears" = "None", "frills" = pick(GLOB.frills_list), "spines" = pick(GLOB.spines_list), "body_markings" = pick(GLOB.body_markings_list), "legs" = "Normal Legs", "caps" = pick(GLOB.caps_list), "moth_wings" = pick(GLOB.moth_wings_list), "ipc_screen" = pick(GLOB.ipc_screens_list), "ipc_antenna" = pick(GLOB.ipc_antennas_list),"ipc_chassis" = pick(GLOB.ipc_chassis_list), "insect_type" = pick(GLOB.insect_type_list)))
+	if(!GLOB.mam_body_markings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_body_markings, GLOB.mam_body_markings_list)
+	if(!GLOB.mam_tails_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_tails, GLOB.mam_tails_list)
+	if(!GLOB.mam_ears_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_ears, GLOB.mam_ears_list)
+	if(!GLOB.mam_snouts_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_snouts, GLOB.mam_snouts_list)
+
+	var/list/snowflake_mam_tails_list = list()
+	for(var/mtpath in GLOB.mam_tails_list)
+		var/datum/sprite_accessory/mam_tails/instance = GLOB.mam_tails_list[mtpath]
+		if(istype(instance, /datum/sprite_accessory))
+			var/datum/sprite_accessory/S = instance
+			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
+				continue
+			//if(!S.ckeys_allowed)
+			snowflake_mam_tails_list[S.name] = mtpath
+	var/list/snowflake_markings_list = list()
+	for(var/mmpath in GLOB.mam_body_markings_list)
+		var/datum/sprite_accessory/mam_body_markings/instance = GLOB.mam_body_markings_list[mmpath]
+		if(istype(instance, /datum/sprite_accessory))
+			var/datum/sprite_accessory/S = instance
+			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
+				continue
+			//if(!S.ckeys_allowed)
+			snowflake_markings_list[S.name] = mmpath
+	var/list/snowflake_ears_list = list()
+	for(var/mepath in GLOB.mam_ears_list)
+		var/datum/sprite_accessory/mam_ears/instance = GLOB.mam_ears_list[mepath]
+		if(istype(instance, /datum/sprite_accessory))
+			var/datum/sprite_accessory/S = instance
+			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
+				continue
+			//if(!S.ckeys_allowed)
+			snowflake_ears_list[S.name] = mepath
+	var/list/snowflake_mam_snouts_list = list()
+	for(var/mspath in GLOB.mam_snouts_list)
+		var/datum/sprite_accessory/mam_snouts/instance = GLOB.mam_snouts_list[mspath]
+		if(istype(instance, /datum/sprite_accessory))
+			var/datum/sprite_accessory/S = instance
+			//if(!S.ckeys_allowed)
+			snowflake_mam_snouts_list[S.name] = mspath
+	var/list/snowflake_ipc_antenna_list = list()
+	for(var/mspath in GLOB.ipc_antennas_list)
+		var/datum/sprite_accessory/mam_snouts/instance = GLOB.ipc_antennas_list[mspath]
+		if(istype(instance, /datum/sprite_accessory))
+			var/datum/sprite_accessory/S = instance
+			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
+				continue
+			//if(!S.ckeys_allowed)
+			snowflake_ipc_antenna_list[S.name] = mspath
+
+	var/color1 = random_short_color()
+	var/color2 = random_short_color()
+	var/color3 = random_short_color()
+	//CIT CHANGE - changes this entire return to support cit's snowflake parts
+	return(list(
+		"mcolor" = color1,
+		"mcolor2" = color2,
+		"mcolor3" = color3,
+		"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)],
+		"tail_lizard" = pick(GLOB.tails_list_lizard),
+		"tail_human" = pick(GLOB.tails_list_human),
+		"wings" = pick(GLOB.wings_list),
+		"snout" = pick(GLOB.snouts_list),
+		"horns" = pick(GLOB.horns_list),
+		"ears" = pick(GLOB.ears_list),
+		"frills" = pick(GLOB.frills_list),
+		"spines" = pick(GLOB.spines_list),
+		"body_markings" = pick(GLOB.body_markings_list),
+		"legs" = "Normal Legs", "caps" = pick(GLOB.caps_list),
+		"moth_wings" = pick(GLOB.moth_wings_list),
+		"moth_markings" = pick(GLOB.moth_markings_list),
+		"insect_fluff"		= "None",
+		"ipc_screen" = pick(GLOB.ipc_screens_list),
+		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
+		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
+		"insect_type" = pick(GLOB.insect_type_list),
+		"taur" 				= "None",
+		"mam_body_markings" = snowflake_markings_list.len ? pick(snowflake_markings_list) : "None",
+		"mam_ears" 			= snowflake_ears_list ? pick(snowflake_ears_list) : "None",
+		"mam_snouts"		= snowflake_mam_snouts_list ? pick(snowflake_mam_snouts_list) : "None",
+		"mam_tail"			= snowflake_mam_tails_list ? pick(snowflake_mam_tails_list) : "None",
+		"mam_tail_animated" = "None",
+		"xenodorsal" 		= "Standard",
+		"xenohead" 			= "Standard",
+		"xenotail" 			= "Xenomorph Tail",
+		"flavor_text"		= ""))
 
 /proc/random_hair_style(gender)
 	switch(gender)

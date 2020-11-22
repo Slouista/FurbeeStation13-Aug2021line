@@ -327,6 +327,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(!S["feature_ethcolor"] || S["feature_ethcolor"] == "#000")
 		WRITE_FILE(S["feature_ethcolor"]	, "9c3030")
 
+	if(!S["features["wing_color"]"] || S["features["wing_color"]"] == "#000")
+		WRITE_FILE(S["features["wing_color"]"]	, "#FFF")
+
 	//Character
 	S["real_name"]			>> real_name
 	S["name_is_always_random"] >> be_random_name
@@ -358,10 +361,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["feature_lizard_body_markings"]	>> features["body_markings"]
 	S["feature_lizard_legs"]			>> features["legs"]
 	S["feature_moth_wings"]				>> features["moth_wings"]
+	S["feature_moth_fluff"]				>> features["moth_fluff"]
+	S["feature_moth_markings"]			>> features["moth_markings"]
 	S["feature_ipc_screen"]			>> features["ipc_screen"]
 	S["feature_ipc_antenna"]				>> features["ipc_antenna"]
 	S["feature_ipc_chassis"]				>> features["ipc_chassis"]
 	S["feature_insect_type"]				>> features["insect_type"]
+	S["feature_human_tail"]				>> features["tail_human"]
+	S["feature_human_ears"]				>> features["ears"]
+	S["feature_deco_wings"]				>> features["deco_wings"]
+
 	if(!CONFIG_GET(flag/join_with_mutant_humans)  && !species_id != "felinid") // felinids arent mutant humans anymore i guess
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -385,6 +394,34 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Quirks
 	S["all_quirks"]			>> all_quirks
 
+	//Citadel code
+	S["feature_genitals_use_skintone"]	>> features["genitals_use_skintone"]
+	S["feature_exhibitionist"]			>> features["exhibitionist"]
+	S["feature_mcolor2"]				>> features["mcolor2"]
+	S["feature_mcolor3"]				>> features["mcolor3"]
+	S["feature_mam_body_markings"]		>> features["mam_body_markings"]
+	S["body_size"]						>> features["body_size"]
+	S["feature_mam_tail"]				>> features["mam_tail"]
+	S["feature_mam_ears"]				>> features["mam_ears"]
+	S["feature_mam_tail_animated"]		>> features["mam_tail_animated"]
+	S["feature_taur"]					>> features["taur"]
+	S["feature_mam_snouts"]				>> features["mam_snouts"]
+	//Xeno features
+	S["feature_xeno_tail"]				>> features["xenotail"]
+	S["feature_xeno_dors"]				>> features["xenodorsal"]
+	S["feature_xeno_head"]				>> features["xenohead"]
+
+	//flavor text
+	//Let's make our players NOT cry desperately as we wipe their savefiles of their special snowflake texts:
+	if((S["flavor_text"] != "") && (S["flavor_text"] != null) && S["flavor_text"]) //If old text isn't null and isn't "" but still exists.
+		S["flavor_text"]				>> features["flavor_text"] //Load old flavortext as current dna-based flavortext
+
+		WRITE_FILE(S["feature_flavor_text"], features["flavor_text"]) //Save it in our new type of flavor-text
+		WRITE_FILE(S["flavor_text"]	, "") //Remove old flavortext, completing the cut-and-paste into the new format.
+
+	else //We have no old flavortext, default to new
+		S["feature_flavor_text"]		>> features["flavor_text"]
+
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
 		update_character(needs_update, S)		//needs_update == savefile_version if we need an update (positive integer)
@@ -407,6 +444,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	if(!features["ethcolor"] || features["ethcolor"] == "#000")
 		features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+
+	if(!features["wing_color"] || features["wing_color"] == "#000")
+		features["wing_color"] = "FFFFFF"
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
@@ -442,6 +482,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["body_markings"] 	= sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
 	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
 	features["moth_wings"] 	= sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
+	features["moth_fluff"]		= sanitize_inlist(features["moth_fluff"], GLOB.moth_fluffs_list)
+	features["moth_markings"] 	= sanitize_inlist(features["moth_markings"], GLOB.moth_markings_list, "None")
+	features["deco_wings"] 			= sanitize_inlist(features["deco_wings"], GLOB.deco_wings_list, "None")
 	features["ipc_screen"]	= sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
 	features["ipc_antenna"]	 = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	 = sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
@@ -454,6 +497,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
+
+	cit_character_pref_load(S)
 
 	return 1
 
@@ -503,6 +548,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_lizard_body_markings"]	, features["body_markings"])
 	WRITE_FILE(S["feature_lizard_legs"]			, features["legs"])
 	WRITE_FILE(S["feature_moth_wings"]			, features["moth_wings"])
+	WRITE_FILE(S["feature_moth_fluff"]			, features["moth_fluff"])
+	WRITE_FILE(S["feature_moth_markings"]		, features["moth_markings"])
+	WRITE_FILE(S["feature_deco_wings"]				, features["deco_wings"])
 	WRITE_FILE(S["feature_ipc_screen"]			, features["ipc_screen"])
 	WRITE_FILE(S["feature_ipc_antenna"]			, features["ipc_antenna"])
 	WRITE_FILE(S["feature_ipc_chassis"]			, features["ipc_chassis"])
@@ -523,6 +571,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
+
+	cit_character_pref_save(S)
 
 	return 1
 

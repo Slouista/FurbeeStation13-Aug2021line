@@ -312,13 +312,22 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_inv_head()
 	..()
 	update_mutant_bodyparts()
-	var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]
-	if(head_overlay)
+	if(head)
 		remove_overlay(HEAD_LAYER)
+		var/obj/item/clothing/head/H = head
+		if(H.mutantrace_variation)
+			if(H.muzzle_var == ALT_STYLE)
+				H.alternate_worn_icon = 'modular_citadel/icons/mob/muzzled_helmet.dmi'
+			else
+				H.alternate_worn_icon = null
+
+		overlays_standing[HEAD_LAYER] = H.build_worn_icon(state = H.icon_state, default_layer = HEAD_LAYER, default_icon_file = ((head.alternate_worn_icon) ? H.alternate_worn_icon : 'icons/mob/head.dmi'))
+		var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]
+
 		if(OFFSET_HEAD in dna.species.offset_features)
 			head_overlay.pixel_x += dna.species.offset_features[OFFSET_HEAD][1]
 			head_overlay.pixel_y += dna.species.offset_features[OFFSET_HEAD][2]
-			overlays_standing[HEAD_LAYER] = head_overlay
+		overlays_standing[HEAD_LAYER] = head_overlay
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_inv_belt()
@@ -585,7 +594,7 @@ generate/load female uniform sprites matching all previously decided variables
 	else if(dna.species.fixed_mut_color)
 		. += "-coloured-[dna.species.fixed_mut_color]"
 	else if(dna.features["mcolor"])
-		. += "-coloured-[dna.features["mcolor"]]"
+		. += "-coloured-[dna.features["mcolor"]]"// mcolor2 mcolor3
 	else
 		. += "-not_coloured"
 
@@ -602,7 +611,10 @@ generate/load female uniform sprites matching all previously decided variables
 			. += "-digitigrade[BP.use_digitigrade]"
 		if(BP.dmg_overlay_type)
 			. += "-[BP.dmg_overlay_type]"
-
+		/*if(BP.body_markings)
+			. += "-[BP.body_markings]"
+		else
+			. += "-no_marking"*/
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += "-husk"
 

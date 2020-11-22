@@ -472,8 +472,13 @@ ROUNDSTART_RACES moth
 ROUNDSTART_RACES plasmaman
 ROUNDSTART_RACES felinid
 ROUNDSTART_RACES squid
-#ROUNDSTART_RACES shadow
+ROUNDSTART_RACES shadow
 ROUNDSTART_RACES ipc
+ROUNDSTART_RACES mammal
+ROUNDSTART_RACES avian
+ROUNDSTART_RACES insect
+ROUNDSTART_RACES xeno
+ROUNDSTART_RACES synthliz
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
@@ -481,7 +486,7 @@ ROUNDSTART_RACES apid
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES iron_golem
 #ROUNDSTART_RACES adamantine_golem
-#ROUNDSTART_RACES plasma_golem
+ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
 #ROUNDSTART_RACES silver_golem
