@@ -1987,6 +1987,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							features["body_markings"] = "None"
 						update_preview_icon()
 
+				/* Alternate mam_body_markings code I tried but fixed nothing I am having issues with.
+				if("mam_body_markings")
+					var/new_mam_body_markings
+					new_mam_body_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.mam_body_markings_list
+					if(new_mam_body_markings)
+						features["mam_body_markings"] = new_mam_body_markings
+				*/
+
 				//Xeno Bodyparts
 				if("xenohead")//Head or caste type
 					var/new_head

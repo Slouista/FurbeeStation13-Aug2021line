@@ -309,8 +309,8 @@
 		color_src = FALSE
 		base_bp_icon = DEFAULT_BODYPART_ICON
 		no_update = TRUE
-		//body_markings = "husk" // reeee
-		//auxmarking = "husk"
+		body_markings = "husk" // reeee
+		auxmarking = "husk"
 
 	if(no_update)
 		return

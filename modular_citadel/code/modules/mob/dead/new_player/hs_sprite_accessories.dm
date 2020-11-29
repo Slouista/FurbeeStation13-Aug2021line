@@ -41,7 +41,7 @@
 	icon_state = "guilmon"
 	color_src = MATRIXED
 	icon = 'modular_citadel/icons/mob/markings_notmammals.dmi'
-
+// do note this alternate "body marking" for lizards works, unlike the mam_body_markings we are trying to fix.
 /datum/sprite_accessory/tails/lizard/guilmon
 	name = "Guilmon"
 	icon_state = "guilmon"

@@ -713,7 +713,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if("taur" in mutant_bodyparts)
 		if(!H.dna.features["taur"] || H.dna.features["taur"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDETAUR)))
 			bodyparts_to_add -= "taur"
-
+// no mam body markings entry right here???, okay this is in fact correct as per hyperstation where this bit of code comes from
 //END EDIT
 
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
@@ -801,6 +801,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.mam_tails_animated_list[H.dna.features["mam_tail"]]
 				if("mam_body_markings")
 					S = GLOB.mam_body_markings_list[H.dna.features["mam_body_markings"]]
+				// search for fix to issues with mam_body_markings was here!, also I still can not find anything that explains it being out of order.
 				if("mam_ears")
 					S = GLOB.mam_ears_list[H.dna.features["mam_ears"]]
 				if("mam_snouts")
