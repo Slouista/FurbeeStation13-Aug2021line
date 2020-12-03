@@ -13,3 +13,7 @@
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon_state = "keyjanitor"
 
+/obj/item/key/emtkey
+	name = "EMTkey"
+	desc = "The keys to the EMT cart!"
+	icon_state = "wanbulancekey"

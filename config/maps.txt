@@ -50,10 +50,11 @@ endmap
 map kilostation
     maxplayers 60
 	votable
+	default
 endmap
 
 map austation
-    default
+    #default
     votable
 endmap
 

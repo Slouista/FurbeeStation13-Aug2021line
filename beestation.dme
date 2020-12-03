@@ -3156,6 +3156,7 @@
 #include "code\modules\vehicles\speedbike.dm"
 #include "code\modules\vehicles\vehicle_actions.dm"
 #include "code\modules\vehicles\vehicle_key.dm"
+#include "code\modules\vehicles\wanbulance.dm"
 #include "code\modules\vehicles\wheelchair.dm"
 #include "code\modules\vehicles\cars\car.dm"
 #include "code\modules\vehicles\cars\clowncar.dm"
@@ -3196,11 +3197,25 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
-#include "modular_citadel\code\modules\client\preferences_savefile.dm"
+#include "modular_citadel\code\modules\client\preferences_savefile.dm"// modular citadel essentials
 #include "modular_citadel\code\modules\mob\dead\new_player\hs_sprite_accessories.dm"
 #include "modular_citadel\code\modules\mob\living\carbon\human\human.dm"
 #include "modular_citadel\code\modules\mob\living\carbon\human\species.dm"
 #include "modular_citadel\code\modules\mob\living\carbon\human\species_types\furrypeople.dm"
+/*
+#include "modular_citadel\code\modules\reagents\chemistry\reagents.dm"// reagents and fermi chem
+#include "modular_citadel\code\modules\reagents\chemistry\holder.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\astrogen.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\eigentstasium.dm"
+#include "modular_citadel\code\game\objects\structures\crates_lockers\closets.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\fermi_reagents.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\healing.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\MKUltra.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\other_reagents.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\reagents\SDGF.dm"
+#include "modular_citadel\code\modules\reagents\chemistry\recipes\fermi.dm"
+#include "modular_citadel\code\datums\mood_events\chem_events.dm"
+*/
 // END_INCLUDE
 
 // BEGIN_AUSTATION_INCLUDES
