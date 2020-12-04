@@ -161,21 +161,20 @@
 		if(!istype(stomach))
 			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 			return
-		if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
+		if(stomach.crystal_charge >= 145)
 			to_chat(H, "<span class='warning'>Your charge is full!</span>")
 			return
 		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
 		E.drain_time = world.time + 20
-		if((charge < 100) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
+		if((charge < 100) || (stomach.crystal_charge >= 145))
 			return
 		if(do_after(user, 20, target = src))
 			to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
-			stomach.adjust_charge(3)
-			charge -= 100 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
+			stomach.adjust_charge(10) // default 3
+			charge -= 300 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger // default 100
 		else
 			to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
 	return
-
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
