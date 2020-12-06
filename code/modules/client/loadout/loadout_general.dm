@@ -16,6 +16,11 @@
 	path = /obj/item/coin/antagtoken
 	cost = 10000
 
+/datum/gear/misc/wallet
+	display_name = "Wallet"
+	path = /obj/item/storage/wallet
+	cost = 1000
+
 //LIGHTERS & CIGARETTES
 
 /datum/gear/misc/lighter

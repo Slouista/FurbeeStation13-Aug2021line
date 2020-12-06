@@ -13,10 +13,11 @@
 // END_PREFERENCES
 
 // BEGIN_AUSTATION_DEFINE_INCLUDES
-#include "austation\define_includes.dm"
+//#include "austation\define_includes.dm"
 // END_AUSTATION_DEFINE_INCLUDES
 
 // BEGIN_INCLUDE
+#include "austation\define_includes.dm"
 #include "_maps\_basemap.dm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
