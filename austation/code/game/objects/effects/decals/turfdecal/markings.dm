@@ -1,5 +1,5 @@
-/obj/effect/turf_decal/plaque
-	icon = 'austation/icons/obj/turf/plaque.dmi'
+///obj/effect/turf_decal/plaque
+//	icon = 'austation/icons/obj/turf/plaque.dmi'
 
 /obj/effect/turf_decal/yellowsiding/line
 	icon = 'austation/icons/turf/decals.dmi'

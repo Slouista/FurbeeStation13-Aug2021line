@@ -17,8 +17,8 @@
 // END_AUSTATION_DEFINE_INCLUDES
 
 // BEGIN_INCLUDE
-#include "austation\define_includes.dm"
 #include "_maps\_basemap.dm"
+#include "austation\define_includes.dm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"

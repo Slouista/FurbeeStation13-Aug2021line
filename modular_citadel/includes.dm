@@ -6,6 +6,8 @@
 #include "code\modules\mob\living\carbon\human\human.dm"
 #include "code\modules\mob\living\carbon\human\species.dm"
 #include "code\modules\mob\living\carbon\human\species_types\furrypeople.dm"
+#include "code\game\objects\effects\decals\turfdecal\furbeestation.dm"
+//#include "code\modules\food_and_drinks\drinks\drinks.dm" EMPTY
 
 //Loadout Code
 /*
