@@ -493,6 +493,7 @@ ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES uranium_golem
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES synth
+ROUNDSTART_RACES slimeperson
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES skeleton

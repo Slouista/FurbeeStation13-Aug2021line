@@ -1,6 +1,31 @@
 /datum/species/jelly/slime
 	name = "Xenobiological Slimeperson"
 
+/datum/species/jelly
+	mutant_bodyparts = list("mam_tail", "mam_ears", "mam_snouts", "taur") //CIT CHANGE
+	default_features = list("mcolor" = "FFF", "mam_tail" = "None", "mam_ears" = "None", "mam_snouts" = "None", "taur" = "None") //CIT CHANGE
+	var/datum/action/innate/slime_change/slime_change	//CIT CHANGE
+
+/datum/species/jelly/on_species_loss(mob/living/carbon/C)
+	if(regenerate_limbs)
+		regenerate_limbs.Remove(C)
+	if(slime_change)	//CIT CHANGE
+		slime_change.Remove(C)	//CIT CHANGE
+	C.remove_language(/datum/language/slime)
+	C.faction -= "slime"
+	..()
+	C.faction -= "slime"
+
+/datum/species/jelly/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	..()
+	C.grant_language(/datum/language/slime)
+	if(ishuman(C))
+		regenerate_limbs = new
+		regenerate_limbs.Grant(C)
+		slime_change = new	//CIT CHANGE
+		slime_change.Grant(C)	//CIT CHANGE
+	C.faction |= "slime"
+
 //##########SLIMEPEOPLE##########
 
 /datum/species/jelly/roundstartslime
@@ -10,8 +35,8 @@
 	default_color = "00FFFF"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD,WINGCOLOR)
 	inherent_traits = list(TRAIT_TOXINLOVER)
-	mutant_bodyparts = list("mam_tail", "mam_ears", "mam_body_markings", "mam_snouts", "taur", "deco_wings")
-	default_features = list("mcolor" = "FFF", "mcolor2" = "FFF","mcolor3" = "FFF", "mam_tail" = "None", "mam_ears" = "None", "mam_body_markings" = "Plain", "mam_snouts" = "None", "taur" = "None", "deco_wings" = "None")
+	mutant_bodyparts = list("mam_tail", "mam_ears", "body_markings", "mam_snouts", "taur", "deco_wings")
+	default_features = list("mcolor" = "FFF", "mcolor2" = "FFF","mcolor3" = "FFF", "mam_tail" = "None", "mam_ears" = "None", "body_markings" = "Plain", "mam_snouts" = "None", "taur" = "None", "deco_wings" = "None")
 	say_mod = "says"
 	hair_color = "mutcolor"
 	hair_alpha = 160 //a notch brighter so it blends better.
@@ -68,7 +93,7 @@
 
 /datum/action/innate/slime_change/proc/change_form()
 	var/mob/living/carbon/human/H = owner
-	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Hair Style", "Genitals", "Tail", "Snout", "Markings", "Ears", "Taur body", "Penis", "Vagina", "Penis Length", "Breast Size", "Breast Shape", "Cancel")
+	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Hair Style", /*"Genitals",*/ "Tail", "Snout", "Markings", "Ears", "Taur body",/* "Penis", "Vagina", "Penis Length", "Breast Size", "Breast Shape",*/ "Cancel")
 	if(select_alteration == "Hair Style")
 		if(H.gender == MALE)
 			var/new_style = input(owner, "Select a facial hair style", "Hair Alterations")  as null|anything in GLOB.facial_hair_styles_list
@@ -81,6 +106,8 @@
 		if(new_style)
 			H.hair_style = new_style
 			H.update_hair()
+
+	/* // No Genitals!!!
 	else if (select_alteration == "Genitals")
 		var/list/organs = list()
 		var/operation = input("Select organ operation.", "Organ Manipulation", "cancel") in list("add sexual organ", "remove sexual organ", "cancel")
@@ -114,6 +141,7 @@
 				organ.forceMove(get_turf(H))
 				qdel(organ)
 				H.update_genitals()
+	*/
 
 	else if (select_alteration == "Ears")
 		var/list/snowflake_ears_list = list("Normal" = null)
@@ -121,8 +149,8 @@
 			var/datum/sprite_accessory/mam_ears/instance = GLOB.mam_ears_list[path]
 			if(istype(instance, /datum/sprite_accessory))
 				var/datum/sprite_accessory/S = instance
-				if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
-					snowflake_ears_list[S.name] = path
+				//if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
+				snowflake_ears_list[S.name] = path
 		var/new_ears
 		new_ears = input(owner, "Choose your character's ears:", "Ear Alteration") as null|anything in snowflake_ears_list
 		if(new_ears)
@@ -135,13 +163,49 @@
 			var/datum/sprite_accessory/mam_snouts/instance = GLOB.mam_snouts_list[path]
 			if(istype(instance, /datum/sprite_accessory))
 				var/datum/sprite_accessory/S = instance
-				if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
-					snowflake_snouts_list[S.name] = path
+				//if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
+				snowflake_snouts_list[S.name] = path
 		var/new_snout
 		new_snout = input(owner, "Choose your character's face:", "Face Alteration") as null|anything in snowflake_snouts_list
 		if(new_snout)
 			H.dna.features["mam_snouts"] = new_snout
 		H.update_body()
+
+	else if (select_alteration == "Markings")
+		var/list/snowflake_markings_list = list()
+		for(var/path in GLOB.body_markings_list)
+			var/datum/sprite_accessory/body_markings/instance = GLOB.body_markings_list[path]
+			if(istype(instance, /datum/sprite_accessory))
+				var/datum/sprite_accessory/S = instance
+				//if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
+				snowflake_markings_list[S.name] = path
+		var/new_body_markings
+		new_body_markings = input(H, "Choose your character's body markings:", "Marking Alteration") as null|anything in snowflake_markings_list
+		if(new_body_markings)
+			H.dna.features["body_markings"] = new_body_markings
+			if(new_body_markings == "None")
+				H.dna.features["body_markings"] = "None"
+		for(var/X in H.bodyparts) //propagates the markings changes
+			var/obj/item/bodypart/BP = X
+			BP.update_limb(FALSE, H)
+		H.update_body()
+
+// welcome to how do we fix mammal body markings the above is a stop gap meassure but I am out of ideas
+// the suspects are files with some relation to the process
+// so far I have replaced the fallowing files
+// bodyparts.dm  no effect
+// species.dm , no effect
+// dna.dm, no effect
+// at this point I don't know!!!
+// so then I try turning mam_body_markings into body_markings in hs_sprite_accessories.dm which did not help in my experament today.
+
+/* // other implimentations, none of these really work.
+	else if (select_alteration == "Markings")
+		H.dna.features["mam_body_markings"] = random_features()
+		H.update_body()
+
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_body_markings, GLOB.mam_body_markings_list)
+		return(list("mam_body_markings" = snowflake_markings_list.len ? pick(snowflake_markings_list) : "None"))
 
 	else if (select_alteration == "Markings")
 		var/list/snowflake_markings_list = list()
@@ -162,14 +226,16 @@
 			BP.update_limb(FALSE, H)
 		H.update_body()
 
+*/
+
 	else if (select_alteration == "Tail")
 		var/list/snowflake_tails_list = list("Normal" = null)
 		for(var/path in GLOB.mam_tails_list)
 			var/datum/sprite_accessory/mam_tails/instance = GLOB.mam_tails_list[path]
 			if(istype(instance, /datum/sprite_accessory))
 				var/datum/sprite_accessory/S = instance
-				if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
-					snowflake_tails_list[S.name] = path
+				//if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
+				snowflake_tails_list[S.name] = path
 		var/new_tail
 		new_tail = input(owner, "Choose your character's Tail(s):", "Tail Alteration") as null|anything in snowflake_tails_list
 		if(new_tail)
@@ -184,8 +250,8 @@
 			var/datum/sprite_accessory/taur/instance = GLOB.taur_list[path]
 			if(istype(instance, /datum/sprite_accessory))
 				var/datum/sprite_accessory/S = instance
-				if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
-					snowflake_taur_list[S.name] = path
+				//if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(H.client.ckey)))
+				snowflake_taur_list[S.name] = path
 		var/new_taur
 		new_taur = input(owner, "Choose your character's tauric body:", "Tauric Alteration") as null|anything in snowflake_taur_list
 		if(new_taur)
@@ -194,6 +260,7 @@
 				H.dna.features["mam_tail"] = "None"
 		H.update_body()
 
+	/* //the penis is gay
 	else if (select_alteration == "Penis")
 		for(var/obj/item/organ/genital/penis/X in H.internal_organs)
 			qdel(X)
@@ -252,6 +319,7 @@
 		H.update_genitals()
 		H.apply_overlay()
 		H.give_breasts()
+	*/
 
 	else
 		return
