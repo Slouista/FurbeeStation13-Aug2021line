@@ -50,6 +50,12 @@ GLOBAL_LIST_EMPTY(exotic_back_list)
 GLOBAL_LIST_EMPTY(xeno_head_list)
 GLOBAL_LIST_EMPTY(xeno_tail_list)
 GLOBAL_LIST_EMPTY(xeno_dorsal_list)
+
+	//arachnid
+GLOBAL_LIST_EMPTY(arachnid_legs_list)
+GLOBAL_LIST_EMPTY(arachnid_spinneret_list)
+GLOBAL_LIST_EMPTY(arachnid_mandibles_list)
+
 /*
 	//IPC species
 //GLOBAL_LIST_EMPTY(ipc_screens_list)

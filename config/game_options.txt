@@ -476,7 +476,7 @@ ROUNDSTART_RACES shadow
 ROUNDSTART_RACES ipc
 ROUNDSTART_RACES mammal
 ROUNDSTART_RACES avian
-ROUNDSTART_RACES insect
+#ROUNDSTART_RACES insect
 ROUNDSTART_RACES xeno
 ROUNDSTART_RACES synthliz
 
@@ -486,7 +486,7 @@ ROUNDSTART_RACES apid
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES iron_golem
 #ROUNDSTART_RACES adamantine_golem
-ROUNDSTART_RACES plasma_golem
+#ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
 #ROUNDSTART_RACES silver_golem
@@ -494,6 +494,7 @@ ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES synth
 ROUNDSTART_RACES slimeperson
+ROUNDSTART_RACES arachnid
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES skeleton

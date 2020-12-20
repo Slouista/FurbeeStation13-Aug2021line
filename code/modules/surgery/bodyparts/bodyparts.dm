@@ -369,6 +369,22 @@
 
 		dmg_overlay_type = S.damage_overlay_type
 
+		/*if(S.mutant_bodyparts["mam_body_markings"])
+			var/datum/sprite_accessory/Smark
+			Smark = GLOB.mam_body_markings_list[H.dna.features["mam_body_markings"]]
+			if(Smark)
+				body_markings_icon = Smark.icon
+			if(H.dna.features["mam_body_markings"] != "None")
+				body_markings = Smark?.icon_state || lowertext(H.dna.features["mam_body_markings"])
+				aux_marking = Smark?.icon_state || lowertext(H.dna.features["mam_body_markings"])
+			else
+				body_markings = "plain"
+				aux_marking = "plain"
+			markings_color = list(colorlist)
+		else
+			body_markings = null
+			aux_marking = null
+		*/
 		if("mam_body_markings" in S.default_features)
 			var/datum/sprite_accessory/Smark
 			Smark = GLOB.mam_body_markings_list[H.dna.features["mam_body_markings"]]
@@ -427,7 +443,7 @@
 
 		if(!isnull(body_markings) && status == BODYPART_ORGANIC)
 			if(!use_digitigrade)
-				if(body_zone == BODY_ZONE_CHEST) // I do not get it! control flow error
+				if(body_zone == BODY_ZONE_CHEST)
 					. += image(body_markings_icon, "[body_markings]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
 				else
 					. += image(body_markings_icon, "[body_markings]_[body_zone]", -MARKING_LAYER, image_dir)

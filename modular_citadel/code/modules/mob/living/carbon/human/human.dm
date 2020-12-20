@@ -13,6 +13,9 @@
 /mob/living/carbon/human/species/xeno
 	race = /datum/species/xeno
 
+/mob/living/carbon/human/species/arachnid
+	race = /datum/species/arachnid
+
 /*
 /mob/living/proc/resist_embedded()
 	return

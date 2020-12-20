@@ -1,16 +1,38 @@
-// look I don't know this did not really work out for me so I am just storeing random stuff here for now
-// I think I get it, what if code\modules\client\preferences_savefile.dm
+// shorten includes to make them valid here IE
+// modular_citadel\code\modules\client\preferences_savefile.dm
+// becomes
+// code\modules\client\preferences_savefile.dm
 
+//globals
+#include "code\_globalvars\lists\names.dm"
+
+#include "code\__DEFINES\is_helpers.dm"
+
+#include "code\game\objects\effects\decals\turfdecal\furbeestation.dm"
+//#include "code\modules\food_and_drinks\drinks\drinks.dm" EMPTY
+
+#include "code\__HELPERS\mobs.dm"
+
+//Organs
+#include "code\modules\surgery\organs\tongue.dm"
+#include "code\modules\surgery\organs\eyes.dm"
+
+//Language
+#include "code\modules\language\language_holder.dm"
+#include "code\modules\language\arachnid.dm"
+
+//Race Code
 #include "code\modules\client\preferences_savefile.dm"
 #include "code\modules\mob\dead\new_player\hs_sprite_accessories.dm"
 #include "code\modules\mob\living\carbon\human\human.dm"
 #include "code\modules\mob\living\carbon\human\species.dm"
 #include "code\modules\mob\living\carbon\human\species_types\furrypeople.dm"
-#include "code\game\objects\effects\decals\turfdecal\furbeestation.dm"
-//#include "code\modules\food_and_drinks\drinks\drinks.dm" EMPTY
+#include "code\modules\mob\living\carbon\human\species_types\jellypeople.dm"
+#include "code\modules\mob\living\carbon\human\species_types\arachnid.dm"
+#include "code\game\objects\effects\arachnid_web.dm"
+#include "code\modules\mob\dead\new_player\arachnid.dm"
 
-//Loadout Code
-/*
+/* //Hyper Loadout Code | Abandoned
 //#include "code\modules\client\loadout\__donator.dm"
 #include "code\__HELPERS\mobs.dm"
 #include "code\modules\client\loadout\_medical.dm"

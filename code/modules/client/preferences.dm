@@ -102,6 +102,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		"moth_markings" = "None",
 		"mcolor2" = "FFF",
 		"mcolor3" = "FFF",
+		"arachnid_legs" = "Plain",
+		"arachnid_spinneret" = "Plain",
+		"arachnid_mandibles" = "Plain",
 		"mam_body_markings" = "Plain",
 		"mam_ears" = "None",
 		"mam_snouts" = "None",
@@ -482,6 +485,45 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Moth wings</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=moth_wings;task=input'>[features["moth_wings"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("arachnid_legs" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Arachnid legs</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=arachnid_legs;task=input'>[features["arachnid_legs"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("arachnid_spinneret" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Arachnid spinneret</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=arachnid_spinneret;task=input'>[features["arachnid_spinneret"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("arachnid_mandibles" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Arachnid mandibles</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=arachnid_mandibles;task=input'>[features["arachnid_mandibles"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1710,6 +1752,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					new_tail = input(user, "Choose your character's tail:", "Character Preference") as null|anything in GLOB.tails_list_lizard
 					if(new_tail)
 						features["tail_lizard"] = new_tail
+						if(new_tail != "None")
+							features["taur"] = "None"
+							features["tail_human"] = "None"
+							features["mam_tail"] = "None"
+
 				/*
 				if("tail_human")
 					var/new_tail
@@ -1717,6 +1764,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_tail)
 						features["tail_human"] = new_tail
 				*/
+
 				if("tail_human")
 					var/list/snowflake_tails_list = list()
 					for(var/path in GLOB.tails_list_human)
@@ -1754,6 +1802,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							features["taur"] = "None"
 							features["tail_human"] = "None"
 							features["tail_lizard"] = "None"
+
 				/*
 				if("snout")
 					var/new_snout
@@ -1761,6 +1810,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_snout)
 						features["snout"] = new_snout
 				*/
+
 				if("snout")
 					var/list/snowflake_snouts_list = list()
 					for(var/path in GLOB.snouts_list)
@@ -1798,6 +1848,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					new_horns = input(user, "Choose your character's horns:", "Character Preference") as null|anything in GLOB.horns_list
 					if(new_horns)
 						features["horns"] = new_horns
+
 				/*
 				if("ears")
 					var/new_ears
@@ -1805,6 +1856,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_ears)
 						features["ears"] = new_ears
 				*/
+
 				if("wings")
 					var/new_wings
 					new_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.r_wings_list
@@ -1839,6 +1891,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(new_body_markings != "None")
 							features["mam_body_markings"] = "None"
 						update_preview_icon()
+
 				/*
 				if("legs")
 					var/new_legs
@@ -1846,6 +1899,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_legs)
 						features["legs"] = new_legs
 				*/
+
 				if("legs")
 					var/new_legs
 					new_legs = input(user, "Choose your character's legs:", "Character Preference") as null|anything in GLOB.legs_list
@@ -1884,6 +1938,24 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					if(new_insect_type)
 						features["insect_type"] = new_insect_type
+
+				if("arachnid_legs")
+					var/new_arachnid_legs
+					new_arachnid_legs = input(user, "Choose your character's variant of arachnid legs:", "Character Preference") as null|anything in GLOB.arachnid_legs_list
+					if(new_arachnid_legs)
+						features["arachnid_legs"] = new_arachnid_legs
+
+				if("arachnid_spinneret")
+					var/new_arachnid_spinneret
+					new_arachnid_spinneret = input(user, "Choose your character's spinneret markings:", "Character Preference") as null|anything in GLOB.arachnid_spinneret_list
+					if(new_arachnid_spinneret)
+						features["arachnid_spinneret"] = new_arachnid_spinneret
+
+				if("arachnid_mandibles")
+					var/new_arachnid_mandibles
+					new_arachnid_mandibles = input(user, "Choose your character's variant of mandibles:", "Character Preference") as null|anything in GLOB.arachnid_mandibles_list
+					if (new_arachnid_mandibles)
+						features["arachnid_mandibles"] = new_arachnid_mandibles
 
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones

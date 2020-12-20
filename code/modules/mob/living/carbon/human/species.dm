@@ -592,7 +592,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	H.apply_overlay(BODY_LAYER)
 	handle_mutant_bodyparts(H)
 
-/datum/species/proc/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
+/datum/species/proc/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour) // TODO
 	var/list/bodyparts_to_add = mutant_bodyparts.Copy()
 	var/list/relevent_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER, BODY_TAUR_LAYER)
 	var/list/standing	= list()
@@ -690,6 +690,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if("xenotail" in mutant_bodyparts)
 		if(!H.dna.features["xenotail"] || H.dna.features["xenotail"] == "None" || H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "xenotail"
+
+	//ara ara
+	if("arachnid_mandibles" in mutant_bodyparts) //Take a closer look at that snout!
+		if((H.wear_mask && (H.wear_mask.flags_inv & HIDESNOUT)) || (H.head && (H.head.flags_inv & HIDESNOUT)) || !HD || HD.status == BODYPART_ROBOTIC)
+			bodyparts_to_add -= "arachnid_mandibles"
+
+	if("arachnid_spinneret" in mutant_bodyparts)
+		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
+			bodyparts_to_add -= "arachnid_spinneret"
+
+	if("arachnid_legs" in mutant_bodyparts)
+		if(!H.dna.features["arachnid_legs"] || H.dna.features["arachnid_legs"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "arachnid_legs"
 
 	//Other Races
 	if("mam_tail" in mutant_bodyparts)
@@ -808,6 +821,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.mam_snouts_list[H.dna.features["mam_snouts"]]
 				if("taur")
 					S = GLOB.taur_list[H.dna.features["taur"]]
+				if("arachnid_mandibles")
+					S = GLOB.arachnid_mandibles_list[H.dna.features["arachnid_mandibles"]]
+				if("arachnid_spinneret")
+					S = GLOB.arachnid_spinneret_list[H.dna.features["arachnid_spinneret"]]
+				if("arachnid_legs")
+					S = GLOB.arachnid_legs_list[H.dna.features["arachnid_legs"]]
 				if("xenodorsal")
 					S = GLOB.xeno_dorsal_list[H.dna.features["xenodorsal"]]
 				if("xenohead")
@@ -835,6 +854,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(bodypart == "moth_wings" || bodypart == "deco_wings")
 				bodypart = "moth_wings"
 
+			//if(bodypart == "mam_body_markings") //f
+			//	accessory_overlay.icon_state = "[S.icon_state]_[bodypart]_[g]"
 			if(S.gender_specific)
 				accessory_overlay.icon_state = "[g]_[bodypart]_[S.icon_state]_[layertext]"
 			else

@@ -26,3 +26,11 @@
 			return "Uniform"
 		if(SLOT_IN_BACKPACK)
 			return "In backpack"
+
+/proc/random_unique_arachnid_name(attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		. = capitalize(pick(GLOB.arachnid_first)) + " " + capitalize(pick(GLOB.arachnid_last))
+
+		if(!findname(.))
+			break
+
