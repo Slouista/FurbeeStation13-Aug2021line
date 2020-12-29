@@ -173,6 +173,10 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
+///datum/controller/subsystem/dbcore/proc/Quote(str)
+//	if(connection)
+//		return connection.Quote(str)
+
 /datum/controller/subsystem/dbcore/proc/ErrorMsg()
 	if(!CONFIG_GET(flag/sql_enabled))
 		return "Database disabled by configuration"
