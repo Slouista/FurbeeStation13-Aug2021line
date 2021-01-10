@@ -44,7 +44,7 @@
 
 /client/proc/revokebunkerbypass(ckeytobypass as text)
 	set category = "Special Verbs"
-	set name = "Revoke PB Bypass"
+	set name = "Revoke Whitelist"
 	set desc = "Revoke's a ckey's permission to bypass the panic bunker for a given round."
 	if(!CONFIG_GET(flag/sql_enabled))
 		to_chat(usr, "<span class='adminnotice'>The Database is not enabled!</span>")

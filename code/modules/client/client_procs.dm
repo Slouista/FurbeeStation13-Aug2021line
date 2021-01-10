@@ -600,7 +600,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 	if(!query_client_in_db.NextRow())
 		if (CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey] && !(ckey in GLOB.bunker_passthrough))
-			var/datum/DBQuery/query_client_in_db_whitelist = SSdbcore.NewQuery("SELECT 1 FROM [format_table_name("whitelist")] WHERE ckey = :ckey")
+			var/datum/DBQuery/query_client_in_db_whitelist = SSdbcore.NewQuery(
+				"SELECT 1 FROM [format_table_name("whitelist")] WHERE ckey = :ckey",
+				list("ckey" = ckey)
+			)
 			if(!query_client_in_db_whitelist.Execute())
 				qdel(query_client_in_db_whitelist)
 				return
