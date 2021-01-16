@@ -22,6 +22,7 @@
 	var/web_cooldown = 200
 	var/web_ready = TRUE
 	var/spinner_rate = 25
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/arachnid/random_name(gender,unique,lastname)
 	if(unique)

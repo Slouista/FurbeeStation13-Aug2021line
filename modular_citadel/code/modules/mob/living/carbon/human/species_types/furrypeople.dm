@@ -13,7 +13,7 @@
 	//meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/mammal
 	liked_food = MEAT | FRIED
 	disliked_food = TOXIC
-
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 //Curiosity killed the cat's wagging tail.
 /datum/species/mammal/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
@@ -63,6 +63,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	liked_food = MEAT | FRUIT
 	disliked_food = TOXIC
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/avian/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
@@ -110,6 +111,7 @@
 	liked_food = MEAT
 	disliked_food = TOXIC
 	//meat = /obj/item/reagent_containers/food/snacks/carpmeat/aquatic
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/aquatic/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
@@ -226,6 +228,7 @@
 	exotic_bloodtype = "L"
 	damage_overlay_type = "xeno"
 	liked_food = MEAT
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/xeno/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	C.grant_language(/datum/language/xenocommon)
@@ -260,9 +263,8 @@
 	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
 	mutantstomach = /obj/item/organ/stomach/cell
 	mutantears = /obj/item/organ/ears/robot
-
 	exotic_bloodtype = "S"
-
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/synthliz/qualifies_for_rank(rank, list/features)
 	return TRUE
