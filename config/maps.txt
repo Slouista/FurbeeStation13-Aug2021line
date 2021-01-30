@@ -62,3 +62,8 @@ map orbitalstation
 	maxplayers 20
 	votable
 endmap
+
+map decastation
+	maxplayers 20
+	votable
+endmap
