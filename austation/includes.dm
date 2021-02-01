@@ -48,6 +48,7 @@
 #include "code\game\atoms.dm"
 #include "code\game\sound.dm"
 #include "code\game\area\Space_Station_13_areas.dm"
+#include "code\game\decastation.dm"
 #include "code\game\machinery\porta_turret\portable_turret.dm"
 #include "code\game\machinery\syndicatebeacon.dm"
 #include "code\game\mecha\equipment\tools\other_tools.dm"
