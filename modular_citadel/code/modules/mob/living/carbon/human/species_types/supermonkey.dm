@@ -69,6 +69,32 @@
 			var/datum/species/S = H.dna.species
 			S.say_mod = initial(S.say_mod)
 
+/mob/living/carbon/human/IsAdvancedToolUser()
+	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
+		if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/helmet/monkeytranslator)) //or if they have an uplifter device
+			return TRUE
+		return FALSE
+	return TRUE//Humans can use guns and such
+
+/mob/living/carbon/human/can_use_guns(obj/item/G)
+	. = ..()
+
+	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
+		if(src.dna.check_mutation(HULK))
+			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+			return FALSE
+		if(HAS_TRAIT(src, TRAIT_NOGUNS))
+			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+			return FALSE
+	if(mind)
+		if(mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
+			to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+			return FALSE
+	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
+		return TRUE
+
+	return .
+
 /obj/item/organ/vocal_cords/monkey
 	name = "monkey throat"
 	desc = "A monkey's overdeveloped vocal chords."
