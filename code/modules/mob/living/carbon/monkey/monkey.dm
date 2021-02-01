@@ -51,11 +51,12 @@
 	internal_organs += new /obj/item/organ/lungs
 	internal_organs += new /obj/item/organ/heart
 	internal_organs += new /obj/item/organ/brain
-	internal_organs += new /obj/item/organ/tongue
+	internal_organs += new /obj/item/organ/vocal_cords/monkey
 	internal_organs += new /obj/item/organ/eyes
 	internal_organs += new /obj/item/organ/ears
 	internal_organs += new /obj/item/organ/liver
 	internal_organs += new /obj/item/organ/stomach
+	internal_organs += new /obj/item/organ/tail/monkey
 	..()
 
 /mob/living/carbon/monkey/on_reagent_change()
@@ -97,15 +98,15 @@
 				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
 	return
 
-
 /mob/living/carbon/monkey/verb/removeinternal()
 	set name = "Remove Internals"
 	set category = "IC"
 	internal = null
 	return
 
-
 /mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
+	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/helmet/monkeytranslator)) //or if they have an uplifter device
+		return TRUE
 	if(mind && is_monkey(mind))
 		return TRUE
 	return FALSE
