@@ -3199,7 +3199,7 @@
 // END_INCLUDE
 
 // MODCIT_INC
-#include "modular_citadel\includes.dm"
+#include "modular_citadel\furbee_includes.dm"
 // END
 
 // BEGIN_AUSTATION_INCLUDES

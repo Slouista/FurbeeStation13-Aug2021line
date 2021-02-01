@@ -31,6 +31,7 @@
 #include "code\modules\mob\living\carbon\human\species_types\arachnid.dm"
 #include "code\game\objects\effects\arachnid_web.dm"
 #include "code\modules\mob\dead\new_player\arachnid.dm"
+#include "code\modules\mob\living\carbon\human\species_types\supermonkey.dm"
 
 /* //Hyper Loadout Code | Abandoned
 //#include "code\modules\client\loadout\__donator.dm"
