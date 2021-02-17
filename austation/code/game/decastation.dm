@@ -51,4 +51,4 @@
 
 /obj/structure/sign/plaques/golden/deca
 	name = "DecaStation Plaque"
-	desc = "A plaque commemorating the DecaStation project, as well as the men and woman who helped in it's realisation and continue to expand it.<br><br>circa. 2561<br><br>Tania Buttersworth (Project Lead and Chief Architect)<br>Icktsie VII (Financing)<br>Alex Buttersworth (Chief Construction Manager)<br>Saki Yoshida (Secondary Construction Manager)"
+	desc = "A plaque commemorating the DecaStation project, as well as the men and woman who helped in it's realisation and continue to expand it.<br><br>circa. 2561<br><br>Tania Buttersworth (Project Lead and Chief Architect)<br>Icktsie III (Financing)<br>Alex Buttersworth (Chief Construction Manager)<br>Saki Yoshida (Secondary Construction Manager)"
