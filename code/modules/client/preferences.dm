@@ -2499,7 +2499,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"
+// digitigrade code
+	if("mam_tail" in pref_species.default_features)
+		character.dna.species.mutant_bodyparts |= "mam_tail"
+	if("xenotail" in pref_species.default_features)
+		character.dna.species.mutant_bodyparts |= "xenotail"
 
+	if(("legs" in character.dna.species.mutant_bodyparts) && character.dna.features["legs"] == "Digitigrade Legs")
+		pref_species.species_traits |= DIGITIGRADE
+	else
+		pref_species.species_traits -= DIGITIGRADE
+
+	if(DIGITIGRADE in pref_species.species_traits)
+		character.Digitigrade_Leg_Swap(FALSE)
+	else
+		character.Digitigrade_Leg_Swap(TRUE)
+//
 	if(icon_updates)
 		character.update_body()
 		character.update_hair()

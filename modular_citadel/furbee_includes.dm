@@ -13,6 +13,9 @@
 
 #include "code\__HELPERS\mobs.dm"
 
+//Clothing
+#include "code\modules\clothing\clothing.dm"
+
 //Organs
 #include "code\modules\surgery\organs\tongue.dm"
 #include "code\modules\surgery\organs\eyes.dm"

@@ -134,6 +134,7 @@
 #define NOMOUTH			24
 #define WINGCOLOR		25
 #define MARKINGS		26
+#define NOSHOES         27
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

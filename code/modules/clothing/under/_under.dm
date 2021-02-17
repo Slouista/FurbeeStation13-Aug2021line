@@ -11,6 +11,7 @@
 	var/sensor_mode = NO_SENSORS
 	var/can_adjust = TRUE
 	var/adjusted = NORMAL_STYLE
+	var/suit_style = NORMAL_SUIT_STYLE
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay

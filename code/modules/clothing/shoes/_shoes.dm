@@ -17,6 +17,10 @@
 	var/equipped_before_drop = FALSE
 	var/can_be_bloody = TRUE
 
+	//CITADEL EDIT Enables digitigrade shoe styles
+	var/adjusted = NORMAL_STYLE
+	mutantrace_variation = MUTANTRACE_VARIATION
+
 /obj/item/clothing/shoes/ComponentInitialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
@@ -52,10 +56,23 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe")
 		if(bloody)
-			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood")
+			if(adjusted == NORMAL_STYLE)
+				. += mutable_appearance('icons/effects/blood.dmi', "shoeblood")
+			else
+				. += mutable_appearance('modular_citadel/icons/mob/digishoes.dmi', "shoeblood")
 
 /obj/item/clothing/shoes/equipped(mob/user, slot)
 	. = ..()
+
+	if(mutantrace_variation && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(DIGITIGRADE in H.dna.species.species_traits)
+			adjusted = ALT_STYLE
+			H.update_inv_shoes()
+		else if(adjusted == ALT_STYLE)
+			adjusted = NORMAL_STYLE
+			H.update_inv_shoes()
+
 	if(offset && slot_flags & slotdefine2slotbit(slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)
