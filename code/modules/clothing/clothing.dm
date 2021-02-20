@@ -265,7 +265,7 @@ BLIND     // can't see anything
 		H.update_body()
 
 /obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
-	if(adjusted == DIGITIGRADE_STYLE)
+	if(suit_style == DIGITIGRADE_SUIT_STYLE)
 		return
 	adjusted = !adjusted
 	if(adjusted)

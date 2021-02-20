@@ -15,7 +15,7 @@
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
-	mutantrace_variation = NO_MUTANTRACE_VARIATION //Are there special sprites for specific situations? Don't use this unless you need to.
+	mutantrace_variation = MUTANTRACE_VARIATION //Are there special sprites for specific situations? Don't use this unless you need to.
 	var/freshly_laundered = FALSE
 	var/dodgy_colours = FALSE
 
@@ -72,7 +72,9 @@
 	if(mutantrace_variation && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(DIGITIGRADE in H.dna.species.species_traits)
-			adjusted = DIGITIGRADE_STYLE
+			suit_style = DIGITIGRADE_SUIT_STYLE
+		else
+			suit_style = NORMAL_SUIT_STYLE
 		H.update_inv_w_uniform()
 
 	if(slot == SLOT_W_UNIFORM && freshly_laundered)

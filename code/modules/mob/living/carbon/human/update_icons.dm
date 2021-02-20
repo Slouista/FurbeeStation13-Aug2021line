@@ -378,7 +378,6 @@ There are several things that need to be remembered:
 	apply_overlay(BELT_LAYER)
 
 
-
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 
@@ -386,7 +385,7 @@ There are several things that need to be remembered:
 		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_WEAR_SUIT]
 		inv.update_icon()
 
-	if(istype(wear_suit, /obj/item/clothing/suit))
+	if(wear_suit)
 		var/obj/item/clothing/suit/S = wear_suit
 		var/no_taur_thanks = FALSE
 		if(!istype(S))
@@ -413,7 +412,7 @@ There are several things that need to be remembered:
 				else if(S.taurmode == NOT_TAURIC && S.adjusted == NORMAL_STYLE)
 					S.alternate_worn_icon = null
 
-		overlays_standing[SUIT_LAYER] = wear_suit.build_worn_icon(state = wear_suit.icon_state, default_layer = SUIT_LAYER, default_icon_file = 'icons/mob/suit.dmi')
+		overlays_standing[SUIT_LAYER] = S.build_worn_icon(state = wear_suit.icon_state, default_layer = SUIT_LAYER, default_icon_file = ((wear_suit.alternate_worn_icon) ? S.alternate_worn_icon : 'icons/mob/suit.dmi'))
 		var/mutable_appearance/suit_overlay = overlays_standing[SUIT_LAYER]
 		if(OFFSET_SUIT in dna.species.offset_features)
 			suit_overlay.pixel_x += dna.species.offset_features[OFFSET_SUIT][1]
