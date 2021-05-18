@@ -12,12 +12,17 @@
 #define DEBUG
 // END_PREFERENCES
 
+// MODCIT_DEFINE_INC
+#include "modular_citadel\furbee_define_includes.dm"
+// END
+
 // BEGIN_AUSTATION_DEFINE_INCLUDES
 #include "austation\define_includes.dm"
 // END_AUSTATION_DEFINE_INCLUDES
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
+#include "austation\define_includes.dm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"
@@ -3196,6 +3201,7 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "modular_citadel\furbee_define_includes.dm"
 // END_INCLUDE
 
 // MODCIT_INC

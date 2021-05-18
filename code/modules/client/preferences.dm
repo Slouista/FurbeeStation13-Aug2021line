@@ -90,6 +90,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		"ears" = "None",
 		"wings" = "None",
 		"frills" = "None",
+		"deco_wings" = "None",
 		"spines" = "None",
 		"body_markings" = "None",
 		"legs" = "Normal Legs",
@@ -197,7 +198,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
-#define MAX_MUTANT_ROWS 4
+#define MAX_MUTANT_ROWS 5
 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!user || !user.client)
@@ -612,22 +613,30 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					mutant_category = 0
 
-			if(CONFIG_GET(flag/join_with_mutant_humans))
+			//if(CONFIG_GET(flag/join_with_mutant_humans))
+			if("wings" in pref_species.default_features && GLOB.r_wings_list.len >1)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
 
-				if("wings" in pref_species.default_features && GLOB.r_wings_list.len >1)
-					if(!mutant_category)
-						dat += APPEARANCE_CATEGORY_COLUMN
+				dat += "<h3>Wings</h3>"
 
-					dat += "<h3>Wings</h3>"
+				dat += "<a href='?_src_=prefs;preference=wings;task=input'>[features["wings"]]</a><BR>"
+				//dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=wings;task=input'>[features["wings"]]</a>"
 
-					dat += "<a href='?_src_=prefs;preference=wings;task=input'>[features["wings"]]</a><BR>"
-
-					mutant_category++
-					if(mutant_category >= MAX_MUTANT_ROWS)
-						dat += "</td>"
-						mutant_category = 0
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
 
 			// edit adds snowflake mutant body parts.
+			if("deco_wings" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Decorative wings</h3>"
+
+				dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=deco_wings;task=input'>[features["deco_wings"]]</a>"
+				dat += "<span style='border:1px solid #161616; background-color: #[wing_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=wings_color;task=input'>Change</a><BR>"
 
 			if("moth_markings" in pref_species.default_features)
 				if(!mutant_category)
@@ -2038,7 +2047,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_ears)
 						features["mam_ears"] = new_ears
 
-				if("mam_body_markings")
+				if("mam_body_markings")// Working mam_body_markings code, it was hard to get working but here it is.
 					var/list/snowflake_markings_list = list()
 					for(var/path in GLOB.mam_body_markings_list)
 						var/datum/sprite_accessory/mam_body_markings/instance = GLOB.mam_body_markings_list[path]
@@ -2058,14 +2067,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							features["mam_body_markings"] = "Plain"
 							features["body_markings"] = "None"
 						update_preview_icon()
-
-				/* Alternate mam_body_markings code I tried but fixed nothing I am having issues with.
-				if("mam_body_markings")
-					var/new_mam_body_markings
-					new_mam_body_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.mam_body_markings_list
-					if(new_mam_body_markings)
-						features["mam_body_markings"] = new_mam_body_markings
-				*/
 
 				//Xeno Bodyparts
 				if("xenohead")//Head or caste type

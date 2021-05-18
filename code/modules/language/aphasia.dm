@@ -1,11 +1,11 @@
 /datum/language/aphasia
-	name = "Gibbering"
-	desc = "It is theorized that any sufficiently brain-damaged person can speak this language."
-	speech_verb = "garbles"
+	name = "Snowflake"
+	desc = "It is theorized that any sufficiently special person can speak this language."
+	speech_verb = "narfs"
 	ask_verb = "mumbles"
 	whisper_verb = "mutters"
 	exclaim_verb = "screams incoherently"
-	sing_verb = "gibbers"
+	sing_verb = "yarfs"
 	flags = LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD
 	key = "i"
 	syllables = list("m","n","gh","h","l","s","r","a","e","i","o","u")

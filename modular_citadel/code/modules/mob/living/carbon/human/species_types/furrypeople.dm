@@ -13,7 +13,10 @@
 	//meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/mammal
 	liked_food = MEAT | FRIED
 	disliked_food = TOXIC
+	burnmod = 1.05
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/snowflake
+
 //Curiosity killed the cat's wagging tail.
 /datum/species/mammal/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
@@ -46,6 +49,12 @@
 /datum/species/mammal/qualifies_for_rank(rank, list/features)
 	return TRUE
 
+/datum/language_holder/snowflake
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/aphasia = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+							/datum/language/aphasia = list(LANGUAGE_ATOM))
+
 
 //AVIAN//
 /datum/species/avian
@@ -56,14 +65,27 @@
 	icon_limbs = DEFAULT_BODYPART_ICON_CITADEL
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,HAIR,WINGCOLOR)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	mutant_bodyparts = list("mam_snouts", "wings", "taur", "mam_tail", "mam_body_markings", "taur", "deco_wings")
-	default_features = list("mcolor" = "FFF","mcolor2" = "FFF","mcolor3" = "FFF", "mam_snouts" = "Beak", "mam_body_markings" = "Hawk", "wings" = "None", "taur" = "None", "mam_tail" = "Hawk", "deco_wings" = "None")
+	mutant_bodyparts = list("mam_snouts","taur","mam_tail","mam_body_markings","taur","deco_wings")
+	default_features = list("mcolor" = "FFF","mcolor2" = "FFF","mcolor3" = "FFF", "mam_snouts" = "Beak", "mam_body_markings" = "Hawk", "taur" = "None", "mam_tail" = "Hawk", "deco_wings" = "None")
 	attack_verb = "peck"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	liked_food = MEAT | FRUIT
 	disliked_food = TOXIC
+	mutantwings = /obj/item/organ/wings/moth/robust
+	mutantlungs = /obj/item/organ/lungs/n2
+	burnmod = 1.5
+	heatmod = 1.5
+	brutemod = 1.5
+	breathid = "n2"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/snowflake
+
+/obj/item/organ/lungs/n2
+	name = "air capillary sack"
+	desc = "A spongy mass for filtering nitrogen from the air."
+	safe_oxygen_min = 0
+	safe_nitro_min = 16
 
 /datum/species/avian/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
@@ -112,6 +134,7 @@
 	disliked_food = TOXIC
 	//meat = /obj/item/reagent_containers/food/snacks/carpmeat/aquatic
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/snowflake
 
 /datum/species/aquatic/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
@@ -158,6 +181,11 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	liked_food = VEGETABLES | DAIRY| CLOTH |FRUIT
 	toxic_food = GROSS | RAW | FRIED
+	mutanteyes = /obj/item/organ/eyes/moth
+	mutantwings = /obj/item/organ/wings/moth
+	burnmod = 1.05
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/moth
 
 /datum/species/insect/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	. = ..()
@@ -229,6 +257,7 @@
 	damage_overlay_type = "xeno"
 	liked_food = MEAT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/alien
 
 /datum/species/xeno/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	C.grant_language(/datum/language/xenocommon)
@@ -265,6 +294,7 @@
 	mutantears = /obj/item/organ/ears/robot
 	exotic_bloodtype = "S"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/snowflake
 
 /datum/species/synthliz/qualifies_for_rank(rank, list/features)
 	return TRUE

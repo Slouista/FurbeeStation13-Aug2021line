@@ -6,8 +6,6 @@
 //globals
 #include "code\_globalvars\lists\names.dm"
 
-#include "code\__DEFINES\is_helpers.dm"
-
 #include "code\game\objects\effects\decals\turfdecal\furbeestation.dm"
 //#include "code\modules\food_and_drinks\drinks\drinks.dm" EMPTY
 

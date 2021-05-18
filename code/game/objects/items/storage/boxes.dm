@@ -128,10 +128,12 @@
 	new /obj/item/clothing/head/helmet/space/skinsuit(src)
 	new /obj/item/clothing/suit/space/skinsuit(src)
 
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen(src)
-	else
+	if(isplasmaman(loc))
 		new /obj/item/tank/internals/plasmaman/belt(src)
+	if(isavian(loc))
+		new /obj/item/tank/internals/air(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen(src)
 
 /obj/item/storage/box/survival/radio/PopulateContents()
 	..() // we want the survival stuff too.

@@ -5,8 +5,8 @@
 	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutant_bodyparts = list("moth_wings")
-	default_features = list("moth_wings" = "Plain")
+	mutant_bodyparts = list("moth_wings","moth_markings","moth_fluff")
+	default_features = list("moth_wings" = "Plain","moth_markings" = "None","moth_fluff" = "Plain")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -16,6 +16,7 @@
 	toxic_food = MEAT | RAW
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
+	burnmod = 1.05
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 

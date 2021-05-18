@@ -1437,7 +1437,7 @@ datum/sprite_accessory/mam_tails/insect
 	color_src = MATRIXED
 	gender_specific = 0
 	icon = 'modular_citadel/icons/mob/mam_markings.dmi'
-	recommended_species = list("mammal", "xeno", "slimeperson", "podweak", "avian", "aquatic")
+	recommended_species = list("mammal", "xeno", "slimeperson", "podweak", "avian", "aquatic", "insect")
 
 /datum/sprite_accessory/mam_body_markings/none
 	name = "None"
