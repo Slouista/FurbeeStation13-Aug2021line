@@ -193,24 +193,18 @@ GLOBAL_VAR(monkey_notify_cooldown)
 /// Hit reactions are a slave to the process check shields inside human_defense.dm it restricts what item slots can have hit reactions even happen.
 /obj/item/clothing/head/helmet/monkeytranslator/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(GLOB.monkey_notify_cooldown <= world.time)
-		if( (owner.stat != DEAD) && (!owner.key) || (!owner.mind) )
-			monkey = owner
-			notify_ghosts("[owner] is ready to awaken in [get_area(src)]!", ghost_sound = 'sound/creatures/gorilla.ogg', notify_volume = 50, enter_link = "<a href=?src=[REF(src)];activate=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_SENTIENCE_POTION, notify_suiciders = FALSE)
+		if( (owner.stat != DEAD) && (!owner.key) && (!owner.mind.ghostname) )
 			GLOB.monkey_notify_cooldown = world.time + 600
+			monkey = owner
+			playsound(get_turf(src.monkey), 'sound/machines/defib_charge.ogg', 300, 1, 5)
+			INVOKE_ASYNC(src, .proc/mindtransfer)
 
-/// Basic mind transfer from ghost to monkey.
-/obj/item/clothing/head/helmet/monkeytranslator/attack_ghost(mob/dead/observer/user)
-	if(src.monkey.stat == DEAD)
-		to_chat(user, "<span class='warning'>This [src.monkey] died before you could get to it! Perhaps another might be available later?</span>")
-	if(!src.monkey || QDELETED(src.monkey))
-		to_chat(user, "<span class='warning'>This [src] no longer exists! Perhaps another might be available later?</span>")
-	if(src.monkey == null)
-		to_chat(user, "<span class='warning'>This [src] was taken over before you could get to it! Perhaps it might be available later?</span>")
-	if(!src.monkey.key || !src.monkey.mind)
-		user.mind.transfer_to(src.monkey)
-		src.monkey.key = user.key// forces you into body.
-		user.mind.name = src.monkey.real_name
-		user.mind.remove_all_antag()
-		user.mind.wipe_memory()
-		user.mind.assigned_role = src.monkey.mind.assigned_role
+/obj/item/clothing/head/helmet/monkeytranslator/proc/mindtransfer()
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src.monkey]?", ROLE_SENTIENCE, null, null, 100, src.monkey, POLL_IGNORE_SENTIENCE_POTION)
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/chosen = pick(candidates)
+		src.monkey.key = chosen.key
+		log_game("[chosen.key] has taken over [src.monkey.name] at [loc].")
+		message_admins("[chosen.key] has taken over [src.monkey.name] at [ADMIN_VERBOSEJMP(loc)].")
+		playsound(get_turf(src.monkey), 'sound/machines/defib_zap.ogg', 300, 1, 5)
 		src.monkey = null
