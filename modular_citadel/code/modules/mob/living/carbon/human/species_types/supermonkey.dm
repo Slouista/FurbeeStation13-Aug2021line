@@ -193,7 +193,7 @@ GLOBAL_VAR(monkey_notify_cooldown)
 /// Hit reactions are a slave to the process check shields inside human_defense.dm it restricts what item slots can have hit reactions even happen.
 /obj/item/clothing/head/helmet/monkeytranslator/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(GLOB.monkey_notify_cooldown <= world.time)
-		if( (owner.stat != DEAD) && (!owner.key) && (!owner.mind.ghostname) )
+		if( (owner.stat != DEAD) && (!owner.key) && (!owner.mind || !owner.mind.ghostname) )
 			GLOB.monkey_notify_cooldown = world.time + 600
 			monkey = owner
 			playsound(get_turf(src.monkey), 'sound/machines/defib_charge.ogg', 300, 1, 5)
