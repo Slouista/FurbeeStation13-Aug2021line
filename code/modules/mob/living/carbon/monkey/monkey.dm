@@ -52,7 +52,8 @@
 	internal_organs += new /obj/item/organ/lungs
 	internal_organs += new /obj/item/organ/heart
 	internal_organs += new /obj/item/organ/brain
-	internal_organs += new /obj/item/organ/vocal_cords/monkey
+	internal_organs += new /obj/item/organ/vocal_cords/overdeveloped
+	internal_organs += new /obj/item/organ/tongue
 	internal_organs += new /obj/item/organ/eyes
 	internal_organs += new /obj/item/organ/ears
 	internal_organs += new /obj/item/organ/liver

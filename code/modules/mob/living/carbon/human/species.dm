@@ -81,6 +81,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/tongue/mutanttongue = /obj/item/organ/tongue
 	var/obj/item/organ/tail/mutanttail = null
 	var/obj/item/organ/wings/mutantwings = null
+	var/obj/item/organ/mutantvocalcords = null
+	var/obj/item/organ/mutantresonator = null
 
 	var/obj/item/organ/liver/mutantliver
 	var/obj/item/organ/stomach/mutantstomach
@@ -161,10 +163,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 	var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
 	var/obj/item/organ/tongue/tongue = C.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/vocal_cords/vocal_cords = C.getorganslot(ORGAN_SLOT_VOICE)
 	var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
 	var/obj/item/organ/wings/wings = C.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/adamantine_resonator/adamantine_resonator = C.getorganslot(ORGAN_SLOT_ADAMANTINE_RESONATOR)
 
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
@@ -177,6 +181,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_stomach = !(NOSTOMACH in species_traits)
 	var/should_have_tail = mutanttail
 	var/should_have_wings = mutantwings
+	var/should_have_vocal_cords = mutantvocalcords
+	var/should_have_adamantine_resonator = mutantresonator
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
@@ -265,6 +271,20 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(should_have_tongue && !tongue)
 			tongue = new mutanttongue
 			tongue.Insert(C)
+
+		if(vocal_cords && (!should_have_vocal_cords || replace_current))
+			vocal_cords.Remove(C,1)
+			QDEL_NULL(vocal_cords)
+		if(should_have_vocal_cords && !vocal_cords)
+			vocal_cords = new mutantvocalcords()
+			vocal_cords.Insert(C)
+
+		if(adamantine_resonator && (!should_have_adamantine_resonator || replace_current))
+			adamantine_resonator.Remove(C,1)
+			QDEL_NULL(adamantine_resonator)
+		if(should_have_adamantine_resonator && !adamantine_resonator)
+			adamantine_resonator = new mutantresonator()
+			adamantine_resonator.Insert(C)
 
 	if(old_species)
 		for(var/mutantorgan in old_species.mutant_organs)

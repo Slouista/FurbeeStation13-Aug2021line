@@ -51,7 +51,7 @@ GLOBAL_VAR(monkey_notify_cooldown)
 	inherent_traits = list(TRAIT_MONKEYLIKE) //currently, this is not enough of a downside for any huge buffs. isadvancedtooluser() is oldcode and not used in modern shit, and monkeys will only get cool shit when that is brought to date
 	species_traits = list(NOEYESPRITES) //monkeys have beady little black eyes, and nothing else
 
-	mutant_organs = list(/obj/item/organ/vocal_cords/monkey, /obj/item/organ/tail/monkey) // Lets handle this tail as an organ! RIP || mutanttail = /obj/item/organ/tail/cat || //mutant_bodyparts = list("tail_human") || default_features = "tail_human" = "Cat",
+	mutant_organs = list(/obj/item/organ/vocal_cords/overdeveloped, /obj/item/organ/tail/monkey) // Lets handle this tail as an organ! RIP || mutanttail = /obj/item/organ/tail/cat || //mutant_bodyparts = list("tail_human") || default_features = "tail_human" = "Cat",
 	species_language_holder = /datum/language_holder/monkey
 	outfit_important_for_life = /datum/outfit/monkeyhat
 	disliked_food = GRAIN | DAIRY | JUNKFOOD //reject modernity
@@ -59,8 +59,8 @@ GLOBAL_VAR(monkey_notify_cooldown)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /// Sometimes a race needs new organs this is a speaking organ like a tongue and uses the propertys of vocal_cords but also the fallowing triggered action
-/obj/item/organ/vocal_cords/monkey
-	name = "monkey throat"
+/obj/item/organ/vocal_cords/overdeveloped
+	name = "plica vocalis"
 	desc = "A monkey's overdeveloped vocal chords."
 	actions_types = list(/datum/action/item_action/organ_action/use/monkey_vocal_cords)
 	spans = list("monkeylead", "yell", "big")
@@ -77,7 +77,7 @@ GLOBAL_VAR(monkey_notify_cooldown)
 		return
 	owner.say(".x[message]")
 
-/obj/item/organ/vocal_cords/monkey/handle_speech(message)
+/obj/item/organ/vocal_cords/overdeveloped/handle_speech(message)
 	.=..()
 	playsound(get_turf(owner), 'sound/creatures/gorilla.ogg', 50) //OOGA BOOGA
 
@@ -182,13 +182,14 @@ GLOBAL_VAR(monkey_notify_cooldown)
 /obj/item/clothing/head/helmet/monkeytranslator/dropped(mob/user)
 	..()
 	if(ismonkey(user) || ismonkeyman(user))
-		to_chat(user, "<span class ='big bold monkeylead'>As the electrodes on [src] stop touching your scalp, you feel your mind slipping... returning to monkey.</span>")
-		user.remove_language(/datum/language/common, FALSE, TRUE, LANGUAGE_MONKEYHAT) // lets retain the ability to understand common although not speak it
-		to_chat(user, "<span class ='warning'>You can no longer use advanced machinery!</span>")
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			var/datum/species/S = H.dna.species
-			S.say_mod = initial(S.say_mod)
+		var/mob/living/carbon/human/H = user
+		if(H.get_item_by_slot(SLOT_HEAD) == src)
+			to_chat(user, "<span class ='big bold monkeylead'>As the electrodes on [src] stop touching your scalp, you feel your mind slipping... returning to monkey.</span>")
+			user.remove_language(/datum/language/common, FALSE, TRUE, LANGUAGE_MONKEYHAT) // lets retain the ability to understand common although not speak it
+			to_chat(user, "<span class ='warning'>You can no longer use advanced machinery!</span>")
+			if(ishuman(user))
+				var/datum/species/S = H.dna.species
+				S.say_mod = initial(S.say_mod)
 
 /// Hit reactions are a slave to the process check shields inside human_defense.dm it restricts what item slots can have hit reactions even happen.
 /obj/item/clothing/head/helmet/monkeytranslator/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
