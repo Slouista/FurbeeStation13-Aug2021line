@@ -267,26 +267,20 @@ GLOBAL_VAR(restart_counter)
 
 /world/proc/update_status()
 
-
 	var/list/features = list()
-
-	if(GLOB.master_mode) // hides the gamemode from the hub entry, removes some useless info from the hub entry
-		features += GLOB.master_mode
-	if (!GLOB.enter_allowed)
-		features += "closed"
-
 	var/s = ""
 	var/hostedby
+
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
 		if (server_name)
 			s += "<b>[server_name]</b> &#8212; "
-		features += "[CONFIG_GET(flag/norespawn) ? "no " : ""]respawn" // removes some useless info from the hub entry
-		if(CONFIG_GET(flag/allow_vote_mode))
-			features += "vote"
-		if(CONFIG_GET(flag/allow_ai))
-			features += "AI allowed"
-		hostedby = CONFIG_GET(string/hostedby)
+//		features += "[CONFIG_GET(flag/norespawn) ? "no " : ""]respawn" // removes some useless info from the hub entry
+//		if(CONFIG_GET(flag/allow_vote_mode))
+//			features += "vote"
+//		if(CONFIG_GET(flag/allow_ai))
+//			features += "AI allowed"
+//		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
 	s += " ("
@@ -301,16 +295,22 @@ GLOBAL_VAR(restart_counter)
 		if (M.client)
 			n++
 
-	if(SSmapping.config) // this just stops the runtime, honk.
-		features += "[SSmapping.config.map_name]"	//makes the hub entry display the current map
-
-	if(get_security_level())//makes the hub entry show the security level
-		features += "[get_security_level()] alert"
-
 	if (n > 1)
 		features += "~[n] players"
 	else if (n > 0)
 		features += "~[n] player"
+
+	if(SSmapping.config)
+		features += "[SSmapping.config.map_name]" //makes the hub entry display the current map
+
+	if(GLOB.master_mode) //makes the hub show the gamemode.
+		features += GLOB.master_mode
+
+	if (!GLOB.enter_allowed)
+		features += "closed"
+
+	if(get_security_level()) //makes the hub entry show the security level
+		features += "[get_security_level()] alert"
 
 	if (!host && hostedby)
 		features += "hosted by <b>[hostedby]</b>"
